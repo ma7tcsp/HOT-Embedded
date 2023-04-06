@@ -4,6 +4,8 @@
 # Flask parses incoming request data for you and gives you access to it through that global object.
 # import flask_wtf and wtfforms are libraries that will help us with the form data
 
+hotUser = 'user_default'
+
 from flask import Flask, render_template, request
 from flask_cors import CORS, cross_origin
 from flask_wtf import FlaskForm
