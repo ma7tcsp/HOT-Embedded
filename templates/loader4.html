@@ -40,26 +40,21 @@
 	<div id="demo-content">
 		<div id="loader-wrapper">
 			<div id="loader">
-				<h1>Welcome	back {{username}}</h1>
+				<h1>Welcome	{{username}}, to Connected Apps</h1>
 				<h2>You have sucessfully created a JWT:</h2>	{{CA_SSO_token}}
 				<hr>
 				<div id=tabcontent>
-					<a href="/lesson3_1" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Optional Lesson 3_1 : Multi Viz</a>
-					<a href="/lesson3_2_1" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Lesson 3_2_1 : Static Filters</a>
-					<a href="/lesson3_2_2" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"></i>Optional Lesson 3_2_2 : Dynamic Filters</a>
-					<a href="/lesson3_3" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Optional Lesson 3_3 : Select Marks</a>
-					<a href="/lesson3_4" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Lesson 3_4 : Get Marks</a>
+					<a href="/lesson4" class="d-none d-sm-inline-block btn btn-lg btn-primary shadow-sm">Load Your Dashboard with UAF!</a>
 					<hr>
 					<div id=tabimg>				
 						<tableau-viz id="tableauViz"
-						src="{{tabServer}}/t/{{tabSite}}/views/{{tabRedirect}}/Dashboard1.png" token='{{CA_SSO_token}}'>
+      					src="{{tabServer}}/t/{{tabSite}}/views/{{tabRedirect}}/Dashboard1.png" token='{{CA_SSO_token}}'>
     					</tableau-viz>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-
 
 </body>
 </html>

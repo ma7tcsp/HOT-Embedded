@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>TC22 - Dashboard Embed</title>
+  <title>TC - Dynamic Filters</title>
 
   <!-- Custom fonts for this template-->
   <link href="static/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -19,7 +19,7 @@
   <!-- Custom styles for this template-->
   <link href="static/css/sb-admin-2.css" rel="stylesheet">
 
-  <script type="module" src="http://localhost:8000/javascripts/api/tableau.embedding.3.latest.js"></script>
+  <script type="module" src="https://public.tableau.com/javascripts/api/tableau.embedding.3.latest.js"></script>
   <script src="static/js/embed3_2_2.js"></script>
 
 
@@ -37,7 +37,7 @@
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
         <div class="sidebar-brand-icon">
-          <img src="https://www.tableau.com/sites/default/files/2022-03/TC22_logo_blue_370x91.png" height="50">
+          <img src="static/img/TC_logo_blue_370x91.png" height="50">
         </div>
       </a>
 
@@ -67,9 +67,9 @@
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="#" onclick="change_viz('http://localhost:8000/views/tc_viz/MyTCDash');"><i class="fas fa-fw fa-image"></i><span>TC Dash</span></a>
-            <a class="collapse-item" href="#" onclick="change_viz('http://localhost:8000/views/tc_viz/SalesMap');"><i class="fas fa-fw fa-image"></i><span>Sales Map</span></a>
-            <a class="collapse-item" href="#" onclick="change_viz('http://localhost:8000/views/Regional/GlobalTemperatures');"><i class="fas fa-fw fa-image"></i><span>Temperatures</span></a>
+            <a class="collapse-item" href="#" onclick="change_viz('{{tabServer}}/t/{{tabSite}}/views/{{tabWorkbook}}/MyTCDash');"><i class="fas fa-fw fa-image"></i><span>TC Dash</span></a>
+            <a class="collapse-item" href="#" onclick="change_viz('{{tabServer}}/t/{{tabSite}}/views/{{tabWorkbook}}/SalesMap');"><i class="fas fa-fw fa-image"></i><span>Sales Map</span></a>
+            <a class="collapse-item" href="#" onclick="change_viz('{{tabServer}}/t/{{tabSite}}/views/{{tabWorkbook}}/TotalSales');"><i class="fas fa-fw fa-image"></i><span>Sales & Profit</span></a>
           </div>
         </div>
       </li>
@@ -346,7 +346,7 @@
                 <div class="card-body flex-column">
                   <div id="vizContainer">
                     <tableau-viz id="tableauViz"
-                      src= "{{tabServer + '/views/tc_viz/MyTCDash'}}"
+                      src= "{{tabServer}}/t/{{tabSite}}/views/{{tabWorkbook}}/MyTCDash"
                         device="desktop" toolbar="hidden" hide-tabs width="100%">
                     </tableau-viz>
                   </div>
@@ -371,7 +371,7 @@
       <footer class="sticky-footer bg-white">
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
-            <span>Copyright &copy; TC 2022</span>
+            <span>Copyright &copy; TC 2023</span>
           </div>
         </div>
       </footer>

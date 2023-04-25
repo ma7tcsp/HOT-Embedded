@@ -1,8 +1,34 @@
+#             ▄▄             
+#       ▄▄  ▄▄██▄▄  ▄▄       
+#       ██  ▀▀██▀▀  ██       
+#    ████████ ▀▀ ████████    
+#       ██    ██    ██       ████████╗ █████╗ ██████╗ ██╗     ███████╗ █████╗ ██╗   ██╗
+#    ██ ▀▀    ██    ▀▀ ██    ╚══██╔══╝██╔══██╗██╔══██╗██║     ██╔════╝██╔══██╗██║   ██║
+#  ██████ ██████████ ██████     ██║   ███████║██████╔╝██║     █████╗  ███████║██║   ██║
+#    ██ ▄▄    ██    ▄▄ ██       ██║   ██╔══██║██╔══██╗██║     ██╔══╝  ██╔══██║██║   ██║
+#       ██    ██    ██          ██║   ██║  ██║██████╔╝███████╗███████╗██║  ██║╚██████╔╝
+#    ████████ ▄▄ ████████       ╚═╝   ╚═╝  ╚═╝╚═════╝ ╚══════╝╚══════╝╚═╝  ╚═╝ ╚═════╝ 
+#       ██  ▄▄██▄▄  ██                  HANDS ON TRAINING INITALIZATION...
+#       ▀▀  ▀▀██▀▀  ▀▀       
+#             ▀▀              
+			 
+#INITALIZE THIS VARIABLE
+hotUser = 'user1'
+
+
 # import Flask library (class) that has needed functionality to build Web Server
 # import render_template - this is library that works with Flask Jinja (HTML) templates
 # import request - to access incoming request data, you can use the global request object.
 # Flask parses incoming request data for you and gives you access to it through that global object.
 # import flask_wtf and wtfforms are libraries that will help us with the form data
+
+# initializing global variables
+username = ''
+tabServer = 'https://prod-uk-a.online.tableau.com/'
+tabSite = 'tc23hot20'
+tabWorkbook = 'workbook_' + hotUser
+tabRedirect = 'redirect_' + hotUser
+
 
 from flask import Flask, render_template, request
 from flask_cors import CORS, cross_origin
@@ -14,6 +40,8 @@ import datetime
 import json
 import uuid
 import jwt
+
+
 
 app = Flask(__name__)
 CORS(app)
@@ -31,9 +59,7 @@ def after_request(response):
     response.headers["Pragma"] = "no-cache"
     return response
 
-# initializing global variables
-username = ''
-tabServer = 'http://localhost:8000'
+
 
 
 # this secret key is here a string just so we have forms working - if you want to know more google it ;-)
@@ -75,18 +101,24 @@ def getJWT():
         print(username)
         CA_SSO_token = jwt.encode(
             {
-                "iss": '4063aef9-f1ef-4dac-87bc-06a05f21a64b',
+                # Lesson 2
+                # https://help.tableau.com/current/online/en-us/connected_apps.htm#step-3-configure-the-jwt
+                # Set iss (Issuer) to Connected App Client ID
+                "iss": 'connectedAppClientId',
                 "exp": datetime.datetime.utcnow() + datetime.timedelta(minutes=10),
                 "jti": str(uuid.uuid4()),
                 "aud": "tableau",
                 "sub": username,
                 "scp": ["tableau:views:embed", "tableau:metrics:embed"]
             },
-            'PBBgI0D9Pe0inqNf+nHy/K6Ytv8mP06bjkcoOtfx6Lk=',
+            # Set this value to the Connected App Secret Key 
+            'connectedAppSecretKey',
             algorithm="HS256",
             headers={
-                'kid': 'df4b89a3-7761-4053-9e4f-77958e00e18f',
-                'iss': '4063aef9-f1ef-4dac-87bc-06a05f21a64b'
+                # Set kid (Key ID) to Connected App Secret ID
+                'kid': 'connectedAppSecretId',
+                # Set iss (Issuer) to Connected App Client ID
+                'iss': 'connectedAppClientId'
             }
         )
 
@@ -97,15 +129,15 @@ def getJWT():
 
         print("Here's your JWT!: \n" + CA_SSO_token)
         if request.form['route'] =='2':
-            return render_template('loader2.html', CA_SSO_token=CA_SSO_token,tabServer = tabServer,username=username)
+            return render_template('loader2.html', CA_SSO_token=CA_SSO_token,tabServer = tabServer, username=username, tabSite = tabSite, tabRedirect = tabRedirect)
         if request.form['route'] =='3':
-            return render_template('loader3.html', CA_SSO_token=CA_SSO_token,tabServer = tabServer,username=username)
+            return render_template('loader3.html', CA_SSO_token=CA_SSO_token,tabServer = tabServer, username=username, tabSite = tabSite, tabRedirect = tabRedirect)
         if request.form['route'] =='9':
-            return render_template('loader9.html', CA_SSO_token=CA_SSO_token,tabServer = tabServer,username=username)
+            return render_template('loader9.html', CA_SSO_token=CA_SSO_token,tabServer = tabServer, username=username, tabSite = tabSite, tabRedirect = tabRedirect)
 
 @app.route('/lesson1')
 def loadLesson1():
-    return render_template('lesson1.html', username = username, tabServer = tabServer)
+    return render_template('lesson1.html', username = username, tabServer = tabServer, tabSite = tabSite, tabWorkbook = tabWorkbook)
 @app.route('/lesson2')
 def loadLesson2():
     return render_template('lesson2.html', username = username, tabServer = tabServer)
