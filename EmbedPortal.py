@@ -1,10 +1,34 @@
+#             ▄▄             
+#       ▄▄  ▄▄██▄▄  ▄▄       
+#       ██  ▀▀██▀▀  ██       
+#    ████████ ▀▀ ████████    
+#       ██    ██    ██       ████████╗ █████╗ ██████╗ ██╗     ███████╗ █████╗ ██╗   ██╗
+#    ██ ▀▀    ██    ▀▀ ██    ╚══██╔══╝██╔══██╗██╔══██╗██║     ██╔════╝██╔══██╗██║   ██║
+#  ██████ ██████████ ██████     ██║   ███████║██████╔╝██║     █████╗  ███████║██║   ██║
+#    ██ ▄▄    ██    ▄▄ ██       ██║   ██╔══██║██╔══██╗██║     ██╔══╝  ██╔══██║██║   ██║
+#       ██    ██    ██          ██║   ██║  ██║██████╔╝███████╗███████╗██║  ██║╚██████╔╝
+#    ████████ ▄▄ ████████       ╚═╝   ╚═╝  ╚═╝╚═════╝ ╚══════╝╚══════╝╚═╝  ╚═╝ ╚═════╝ 
+#       ██  ▄▄██▄▄  ██                  HANDS ON TRAINING INITALIZATION...
+#       ▀▀  ▀▀██▀▀  ▀▀       
+#             ▀▀              
+			 
+#INITALIZE THIS VARIABLE
+hotUser = 'user1'
+
+
 # import Flask library (class) that has needed functionality to build Web Server
 # import render_template - this is library that works with Flask Jinja (HTML) templates
 # import request - to access incoming request data, you can use the global request object.
 # Flask parses incoming request data for you and gives you access to it through that global object.
 # import flask_wtf and wtfforms are libraries that will help us with the form data
 
-hotUser = 'user_default'
+# initializing global variables
+username = ''
+tabServer = 'https://eu-west-1a.online.tableau.com'
+tabSite = 'embeddedhot'
+tabWorkbook = 'workbook_' + hotUser
+tabRedirect = 'redirect_' + hotUser
+
 
 from flask import Flask, render_template, request
 from flask_cors import CORS, cross_origin
@@ -16,6 +40,8 @@ import datetime
 import json
 import uuid
 import jwt
+
+
 
 app = Flask(__name__)
 CORS(app)
@@ -33,9 +59,7 @@ def after_request(response):
     response.headers["Pragma"] = "no-cache"
     return response
 
-# initializing global variables
-username = ''
-tabServer = 'http://localhost:8000'
+
 
 
 # this secret key is here a string just so we have forms working - if you want to know more google it ;-)
@@ -60,9 +84,13 @@ def login2():
 @app.route('/login3')
 def login3():
     return render_template('login3.html')
+@app.route('/login4')
+def login4():
+    return render_template('login4.html')
 @app.route('/login9')
 def login9():
     return render_template('login9.html')
+
 
 @app.route('/test')
 def test():
@@ -85,6 +113,9 @@ def getJWT():
                 "jti": str(uuid.uuid4()),
                 "aud": "tableau",
                 "sub": username,
+                #//-- Lesson 4, do not change this code until we reach this part of the course
+                #"myuaf": "MyValue",
+                #-- End of Lesson 4--//
                 "scp": ["tableau:views:embed", "tableau:metrics:embed"]
             },
             # Set this value to the Connected App Secret Key 
@@ -105,38 +136,42 @@ def getJWT():
 
         print("Here's your JWT!: \n" + CA_SSO_token)
         if request.form['route'] =='2':
-            return render_template('loader2.html', CA_SSO_token=CA_SSO_token,tabServer = tabServer,username=username)
+            return render_template('loader2.html', CA_SSO_token=CA_SSO_token,tabServer = tabServer, username=username, tabSite = tabSite, tabRedirect = tabRedirect)
         if request.form['route'] =='3':
-            return render_template('loader3.html', CA_SSO_token=CA_SSO_token,tabServer = tabServer,username=username)
+            return render_template('loader3.html', CA_SSO_token=CA_SSO_token,tabServer = tabServer, username=username, tabSite = tabSite, tabRedirect = tabRedirect)
+        if request.form['route'] =='4':
+            return render_template('loader4.html', CA_SSO_token=CA_SSO_token,tabServer = tabServer, username=username, tabSite = tabSite, tabRedirect = tabRedirect)
         if request.form['route'] =='9':
-            return render_template('loader9.html', CA_SSO_token=CA_SSO_token,tabServer = tabServer,username=username)
+            return render_template('loader9.html', CA_SSO_token=CA_SSO_token,tabServer = tabServer, username=username, tabSite = tabSite, tabRedirect = tabRedirect)
 
 @app.route('/lesson1')
 def loadLesson1():
-    return render_template('lesson1.html', username = username, tabServer = tabServer)
+    return render_template('lesson1.html', username = username, tabServer = tabServer, tabSite = tabSite, tabWorkbook = tabWorkbook)
 @app.route('/lesson2')
 def loadLesson2():
-    return render_template('lesson2.html', username = username, tabServer = tabServer)
+    return render_template('lesson2.html', username = username, tabServer = tabServer, tabSite = tabSite, tabWorkbook = tabWorkbook)
 @app.route('/lesson3_1')
 def loadLesson3_1():
-    return render_template('lesson3_1.html', username = username, tabServer = tabServer)
+    return render_template('lesson3_1.html', username = username, tabServer = tabServer, tabSite = tabSite, tabWorkbook = tabWorkbook)
 @app.route('/lesson3_2_1')
 def loadLesson3_2_1():
-    return render_template('lesson3_2_1.html', username = username, tabServer = tabServer)
+    return render_template('lesson3_2_1.html', username = username, tabServer = tabServer, tabSite = tabSite, tabWorkbook = tabWorkbook)
 @app.route('/lesson3_2_2')
 def loadLesson3_2_2():
-    return render_template('lesson3_2_2.html', username = username, tabServer = tabServer)
+    return render_template('lesson3_2_2.html', username = username, tabServer = tabServer, tabSite = tabSite, tabWorkbook = tabWorkbook)
 @app.route('/lesson3_3')
 def loadLesson3_3():
-    return render_template('lesson3_3.html', username = username, tabServer = tabServer)
+    return render_template('lesson3_3.html', username = username, tabServer = tabServer, tabSite = tabSite, tabWorkbook = tabWorkbook)
 @app.route('/lesson3_4')
 def loadLesson3_4():
-    return render_template('lesson3_4.html', username = username, tabServer = tabServer)
-
+    return render_template('lesson3_4.html', username = username, tabServer = tabServer, tabSite = tabSite, tabWorkbook = tabWorkbook)
+@app.route('/lesson4')
+def loadLesson4():
+    return render_template('lesson4.html', username = username, tabServer = tabServer, tabSite = tabSite, tabWorkbook = tabWorkbook)
 
 @app.route('/complete')
 def loadcomplete():
-    return render_template('complete.html', username = username, tabServer = tabServer)
+    return render_template('complete.html', username = username, tabServer = tabServer, tabSite = tabSite, tabWorkbook = tabWorkbook)
 
 
 
