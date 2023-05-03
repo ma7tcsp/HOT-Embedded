@@ -13,7 +13,7 @@
 #             ▀▀              
 			 
 #INITALIZE THIS VARIABLE
-hotUser = 'user1'
+hotUser = 'user104'
 
 
 # import Flask library (class) that has needed functionality to build Web Server
@@ -114,7 +114,7 @@ def getJWT():
                 "aud": "tableau",
                 "sub": username,
                 #//-- Lesson 4, do not change this code until we reach this part of the course
-                #"myuaf": "MyValue",
+                "myuaf": "Technology",
                 #-- End of Lesson 4--//
                 "scp": ["tableau:views:embed", "tableau:metrics:embed"]
             },
@@ -142,7 +142,7 @@ def getJWT():
         if request.form['route'] =='4':
             return render_template('loader4.html', CA_SSO_token=CA_SSO_token,tabServer = tabServer, username=username, tabSite = tabSite, tabRedirect = tabRedirect)
         if request.form['route'] =='9':
-            return render_template('loader9.html', CA_SSO_token=CA_SSO_token,tabServer = tabServer, username=username, tabSite = tabSite, tabRedirect = tabRedirect)
+            return render_template('complete.html', CA_SSO_token=CA_SSO_token,tabServer = tabServer, username=username, tabSite = tabSite, tabRedirect = tabRedirect,tabWorkbook = tabWorkbook)
 
 @app.route('/lesson1')
 def loadLesson1():

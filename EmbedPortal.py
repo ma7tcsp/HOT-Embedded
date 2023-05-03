@@ -13,7 +13,7 @@
 #             ▀▀              
 			 
 #INITALIZE THIS VARIABLE
-hotUser = 'user1'
+hotUser = 'user_default'
 
 
 # import Flask library (class) that has needed functionality to build Web Server
