@@ -130,6 +130,7 @@ function change_viz(url) {
   // siply set the src to the new sheet and it will render in the existing container/object
   // if onfirst interactive is set then it will trigger this again when the new src has loaded
     viz.src = url;
+    //viz.workbook.activateSheetAsync("Sales Map");
 }
 
 // revert all
