@@ -13,7 +13,7 @@
 #             ▀▀              
 			 
 #INITALIZE THIS VARIABLE
-hotUser = 'user104'
+hotUser = 'user1'
 
 
 # import Flask library (class) that has needed functionality to build Web Server
@@ -114,7 +114,7 @@ def getJWT():
                 "aud": "tableau",
                 "sub": username,
                 #//-- Lesson 4, do not change this code until we reach this part of the course
-                "myuaf": "Technology",
+                #"myuaf": "MyValue",
                 #-- End of Lesson 4--//
                 "scp": ["tableau:views:embed", "tableau:metrics:embed"]
             },
