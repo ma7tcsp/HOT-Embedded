@@ -13,7 +13,7 @@
 #             ▀▀              
 			 
 #INITALIZE THIS VARIABLE
-hotUser = 'user1'
+hotUser = 'hotembed'
 
 
 # import Flask library (class) that has needed functionality to build Web Server
@@ -25,7 +25,9 @@ hotUser = 'user1'
 # initializing global variables
 username = ''
 tabServer = 'https://eu-west-1a.online.tableau.com'
+tabServer = 'https://10ax.online.tableau.com/'
 tabSite = 'embeddedhot'
+tabSite = 'twiki'
 tabWorkbook = 'workbook_' + hotUser
 tabRedirect = 'redirect_' + hotUser
 
