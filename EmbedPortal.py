@@ -13,7 +13,7 @@
 #             ▀▀              
 			 
 #INITALIZE THIS VARIABLE
-hotUser = 'user_default'
+hotUser = 'byohotembed'
 
 
 # import Flask library (class) that has needed functionality to build Web Server
@@ -91,10 +91,9 @@ def login4():
 def login9():
     return render_template('login9.html')
 
-
-@app.route('/test')
-def test():
-    return render_template('loader.html')
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
 
 @app.route('/loadingCA', methods=['GET','POST'])
 @cross_origin()
@@ -174,11 +173,6 @@ def loadcomplete():
     return render_template('complete.html', username = username, tabServer = tabServer, tabSite = tabSite, tabWorkbook = tabWorkbook)
 
 
-
-
-@app.route('/ask')
-def askData():
-    return render_template('askdata.html', username = username, tabServer = tabServer)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80)
