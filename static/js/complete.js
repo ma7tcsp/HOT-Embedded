@@ -88,6 +88,7 @@ function domain(filterValues) {
   document.getElementById('dynFilter').innerHTML += htmlLine;
 }
 
+
 function getSelectedMarks(marksEvent) {
    return marksEvent.detail.getMarksAsync().then(reportSelectedMarks);
 }
@@ -97,10 +98,10 @@ function reportSelectedMarks(marks)
         var html = "Selected DATA will go here!<p>";
 
         var infoDiv = document.getElementById('eventMark');
-        if (marks.data[0].totalRowCount == 0) { html = ""; } else {
+        if (marks.data[0].totalRowCount == 0) { html = ""; } else if (marks.data[0].totalRowCount == 1) {
           state = marks.data[0].data[0][1].formattedValue
           console.log(state);
-          html = "<iframe margin=0 width=100% height=800 src='https://en.wikipedia.org/wiki/" + state + "'></iframe>";}
+          html = "<iframe margin=0 width=100% height=800 src='https://en.wikipedia.org/wiki/" + state + "'></iframe>";} else {html = "";}
         infoDiv.innerHTML = html;
     }
 
@@ -129,14 +130,14 @@ function filterClear(filterName) {
 function change_viz(url) {
   // siply set the src to the new sheet and it will render in the existing container/object
   // if onfirst interactive is set then it will trigger this again when the new src has loaded
-    //viz.src = url;
-    viz.workbook.activateSheetAsync(url);
+    viz.src = url;
 }
 
 // revert all
 function revertAll() {
   viz.revertAllAsync();
 }
+
 // undo last action
 function undo() {
   viz.undoAsync();
